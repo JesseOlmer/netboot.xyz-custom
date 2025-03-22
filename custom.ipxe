@@ -11,7 +11,7 @@ set os Talos
 set os_arch ${arch}
 iseq ${os_arch} x86_64 && set os_arch amd64 ||
 iseq ${os_arch} arm64 && set os_arch arm64 ||
-isset ${talos_mirror} || set talos_mirror https://pxe.factory.talos.dev/image/
+isset ${talos_mirror} || set talos_mirror https://pxe.factory.talos.dev/image
 isset ${talos_version} || set talos_version v1.7.5
 isset ${talos_factory_image} || set talos_factory_image 70fb923343260bfe3e419cfb7bfeb66719b973df0149da9f49ab7637971b1aef
 isset ${talos_platform} || set talos_platform metal
@@ -41,18 +41,15 @@ goto talos_exit
 
 :talos_version_latest
 set talos_version latest
-set talos_base_url ${talos_mirror}/latest/download
 goto talos
 
 :talos_version_v1.7.5
 set talos_version v1.7.5
-set talos_base_url 
 goto talos
 
 :talos_version_custom
 clear talos_version
 echo -n Please set Talos version manually (in format vX.Y.Z):  && read talos_version
-set talos_base_url ${talos_mirror}/download/${talos_version}
 clear menu
 goto talos
 
@@ -76,12 +73,14 @@ goto talos
 :talos_qemu
 set boot_params printk.devkmsg=on slab_nomerge pti=on console=ttyS0 console=tty0 init_on_alloc=1 init_on_free=1 consoleblank=0 nvme_core.io_timeout=4294967295 ima_template=ima-ng ima_appraise=fix ima_hash=sha512 talos.platform=${talos_platform} initrd=initrd.magic ${cmdline}
 imgfree
-kernel ${talos_mirror}${talos_factory_image}/${talos_version}/kernel-amd64 talos.platform=${talos_platform} ${boot_params}
-initrd ${talos_mirror}${talos_factory_image}/${talos_version}/initramfs-amd64.xz
+kernel ${talos_mirror}/${talos_factory_image}/${talos_version}/kernel-amd64 talos.platform=${talos_platform} ${boot_params}
+initrd ${talos_mirror}/${talos_factory_image}/${talos_version}/initramfs-amd64.xz
 echo
+echo Booting Kernel ${talos_mirror}/${talos_factory_image}/${talos_version}/kernel-amd64
 echo Booting with the following kernel args:
 echo ${boot_params}
 echo
+sleep 3
 boot
 
 :talos_exit
