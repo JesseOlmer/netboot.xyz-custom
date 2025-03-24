@@ -12,8 +12,8 @@ set os_arch ${arch}
 iseq ${os_arch} x86_64 && set os_arch amd64 ||
 iseq ${os_arch} arm64 && set os_arch arm64 ||
 isset ${talos_mirror} || set talos_mirror https://pxe.factory.talos.dev/image
-isset ${talos_version} || set talos_version v1.7.5
-isset ${talos_factory_image} || set talos_factory_image 03aaca6298cc6a61170de2dc17f4293850d096d583f597e1bd5c5b0addc07bfd
+isset ${talos_version} || set talos_version v1.9.5
+isset ${talos_factory_image} || set talos_factory_image 0edaa52f4be57c3c448474fcc42019359c16542c8b470c5045e0a8b516f9ffcf
 isset ${talos_platform} || set talos_platform metal
 menu ${os} by Talos Systems
 menu ${os} install
