@@ -8,8 +8,8 @@ clear custom_choice
 menu Homelab Options
 item --gap Talos
 item talos-176 ${space} Talos v1.7.6
-item talos-176 ${space} Talos v1.9.5
-item talos-176 ${space} Talos v1.10.9
+item talos-195 ${space} Talos v1.9.5
+item talos-1109 ${space} Talos v1.10.9
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
